@@ -17,7 +17,7 @@ This application provides a simple user interface to interact with a local LM St
 
 ## Prerequisites
 
-- .NET 7.0 or later
+- .NET 9.0 or later
 - LM Studio or compatible AI service running locally
 - Basic understanding of C# and .NET Windows Forms
 
