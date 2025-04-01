@@ -1,4 +1,4 @@
-# LM Studio Example Form App
+# LM Studio Example Form App 
 
 A Windows Forms application that demonstrates how to integrate with LM Studio or other compatible AI services through a clean C# implementation.
 
