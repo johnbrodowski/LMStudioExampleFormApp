@@ -31,8 +31,8 @@
             btnSend = new Button();
             btnSendNonStreaming = new Button();
             btnCancel = new Button();
-            txtResponse = new TextBox();
             txtPrompt = new TextBox();
+            txtResponse = new RichTextBox();
             SuspendLayout();
             // 
             // btnSend
@@ -69,15 +69,6 @@
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;
             // 
-            // txtResponse
-            // 
-            txtResponse.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            txtResponse.Location = new Point(4, 5);
-            txtResponse.Multiline = true;
-            txtResponse.Name = "txtResponse";
-            txtResponse.Size = new Size(607, 169);
-            txtResponse.TabIndex = 3;
-            // 
             // txtPrompt
             // 
             txtPrompt.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -87,13 +78,23 @@
             txtPrompt.Size = new Size(500, 70);
             txtPrompt.TabIndex = 4;
             // 
+            // txtResponse
+            // 
+            txtResponse.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            txtResponse.Location = new Point(0, 0);
+            txtResponse.Name = "txtResponse";
+            txtResponse.Size = new Size(615, 174);
+            txtResponse.TabIndex = 5;
+            txtResponse.Text = "";
+            txtResponse.TextChanged += txtResponse_TextChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(616, 252);
-            Controls.Add(txtPrompt);
             Controls.Add(txtResponse);
+            Controls.Add(txtPrompt);
             Controls.Add(btnCancel);
             Controls.Add(btnSendNonStreaming);
             Controls.Add(btnSend);
@@ -110,7 +111,7 @@
         private Button btnSend;
         private Button btnSendNonStreaming;
         private Button btnCancel;
-        private TextBox txtResponse;
         private TextBox txtPrompt;
+        private RichTextBox txtResponse;
     }
 }

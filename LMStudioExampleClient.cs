@@ -4,7 +4,8 @@ using System.Text;                  // For text encoding
 using System.Text.Json;             // For JSON serialization/deserialization
 using System.Threading;             // For cancellation support
 using System.Threading.Tasks;       // For async programming
-using System.Diagnostics;           // For debugging output
+using System.Diagnostics;
+using System.Text.Json.Serialization;           // For debugging output
 
 namespace LMStudioExampleFormApp
 {
@@ -12,6 +13,7 @@ namespace LMStudioExampleFormApp
     // Uses constructor with parameters: API endpoint URL, model name, and system prompt
     public class LMStudioExample(string endpoint, string model, string systemPrompt) : IDisposable
     {
+ 
         // HttpClient for making API requests - reused across all requests for efficiency
         private readonly HttpClient _httpClient = new HttpClient();
         // Flag to track whether resources have been disposed
@@ -31,10 +33,35 @@ namespace LMStudioExampleFormApp
         // Event triggered when the status of the request changes
         public event EventHandler<string>? OnStatusUpdate;
 
-        // --- Method for streaming API requests ---
-        // This method sends a message to the AI and gets the response in real-time chunks
-        public async Task SendMessageAsync(string userMessage, CancellationToken cancellationToken = default)
+        private List<Message> messages = new();
+
+
+        public void initialize()
         {
+
+            messages = new List<Message>()
+            {
+                new Message { role = "system", content = "You are a helpful and honest ai assistant" }
+            };
+
+        }
+
+
+
+ 
+
+
+        public async Task<string> SendMessageAsync(string userMessage, CancellationToken cancellationToken = default)
+        {
+ 
+            var msg  = new Message
+            {
+                role = "user",
+                content = userMessage
+            };
+
+            this.messages.Add(msg);
+ 
             // Validate input to avoid sending empty messages
             if (string.IsNullOrEmpty(userMessage))
                 throw new ArgumentException("User message cannot be empty", nameof(userMessage));
@@ -48,10 +75,7 @@ namespace LMStudioExampleFormApp
                 var requestContent = new
                 {
                     model = model,                // Model name (e.g., "gemma-3-4b-it")
-                    messages = new[] {            // Array of message objects
-                        new { role = "system", content = systemPrompt },   // System instructions
-                        new { role = "user", content = userMessage }       // User's input
-                    },
+                    messages = this.messages,
                     temperature = 0.7,            // Controls randomness (0-1)
                     max_tokens = -1,              // Maximum length of response (-1 means no limit)
                     stream = true                 // Enable streaming mode
@@ -115,6 +139,7 @@ namespace LMStudioExampleFormApp
                                         var content = choice.delta.content;
                                         fullResponse += content;  // Add to accumulated response
                                         RaiseContentReceived(content);  // Notify subscribers
+                          
                                     }
                                 }
                             }
@@ -126,11 +151,22 @@ namespace LMStudioExampleFormApp
                             }
                         }
                     }
- 
+
+
+                    var msgAssistant = new Message
+                    {
+                        role = "assistant",
+                        content = fullResponse
+                    };
+
+                    this.messages.Add(msgAssistant);
+
+
                     // If not cancelled, notify that the response is complete
                     if (!cancellationToken.IsCancellationRequested)
                     {
                         RaiseComplete(fullResponse);
+                        return fullResponse;
                     }
                     else
                     {
@@ -158,7 +194,8 @@ namespace LMStudioExampleFormApp
                     RaiseComplete($"Error: The operation was canceled.");
                 }
             }
- 
+
+            return "";  // Return empty string if no response was received
         }
 
         // --- Method for non-streaming API requests ---
@@ -174,14 +211,23 @@ namespace LMStudioExampleFormApp
                 // Notify subscribers about starting a non-streaming request
                 RaiseStatusUpdate("Sending non-streaming request...");
 
+
+
+                var msg = new Message
+                {
+                    role = "user",
+                    content = userMessage
+                };
+
+                this.messages.Add(msg);
+
+
+
                 // Build the request content (similar to streaming, but with stream=false)
                 var requestContent = new
                 {
                     model = model,
-                    messages = new[] {
-                        new { role = "system", content = systemPrompt },
-                        new { role = "user", content = userMessage }
-                    },
+                    messages = this.messages,
                     temperature = 0.7,
                     max_tokens = -1,
                     stream = false  // Disable streaming
@@ -210,6 +256,17 @@ namespace LMStudioExampleFormApp
                     var responseContent = aiResponse?.choices[0]?.message?.content ?? "";
                     Debug.WriteLine($"Non-streaming response received: {responseContent.Length} characters");
                     RaiseComplete(responseContent  );  // Notify subscribers
+
+ 
+
+                    var msgAssistant = new Message
+                    {
+                        role = "assistant",
+                        content = responseContent
+                    };
+
+                    this.messages.Add(msgAssistant);
+
                     return responseContent;  // Return the full response
                 } //Error: The operation was canceled.
                 else
@@ -330,9 +387,18 @@ namespace LMStudioExampleFormApp
     // Contains the complete message in a non-streaming response
     public class Message
     {
-        public string? role { get; set; }              // Role (usually "assistant")
-        public string? content { get; set; } = "";     // The complete text content
+
+        [JsonPropertyName("role")]
+        public string? role { get; set; }
+
+        [JsonPropertyName("content")]
+        public string? content { get; set; }
     }
+
+
+
+
+
 
     // Token usage information
     public class Usage

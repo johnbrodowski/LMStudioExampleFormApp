@@ -18,9 +18,11 @@ namespace LMStudioExampleFormApp
             // Create the AI client with endpoint URL, model name, and system prompt
             _aiClient = new LMStudioExample(
                 "http://localhost:1234/v1/chat/completions", // API endpoint URL
-                "gemma-3-4b-it",                             // Model to use
+                "gemma-3-1b-it",                             // Model to use
                 "you are a professional assistant"           // System instructions
             );
+
+            _aiClient.initialize();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -36,6 +38,7 @@ namespace LMStudioExampleFormApp
         private async void btnSend_Click(object sender, EventArgs e)
         {
             // Handle the non-streaming send button click
+
             await SendMessage(streaming: false);
         }
 
@@ -62,9 +65,18 @@ namespace LMStudioExampleFormApp
             if (string.IsNullOrEmpty(userMessage))
                 return; // Don't do anything if message is empty
 
+
+            ChatMessage($"User:{userMessage}\n");
+
+            if (streaming)
+            {
+                ChatMessage($"Assistant:");
+            }
+
+            string response = "";
             // Clear the UI elements for the new response
             txtPrompt.Clear();
-            txtResponse.Clear();
+            // txtResponse.Clear();
 
             // Update button states
             btnCancel.Enabled = true;       // Enable cancel button
@@ -74,7 +86,6 @@ namespace LMStudioExampleFormApp
             // Cancel any existing request and create a new cancellation token
             _cts?.Cancel();
             _cts = new CancellationTokenSource();
-
             try
             {
                 // Run the API call on a background thread to avoid UI freezing
@@ -83,14 +94,14 @@ namespace LMStudioExampleFormApp
                     if (streaming)
                     {
                         // Use streaming mode - content will come in chunks via events
-                        await _aiClient.SendMessageAsync(userMessage, _cts.Token);
+                        response = await _aiClient.SendMessageAsync(userMessage, _cts.Token);
                     }
                     else
                     {
                         // Use non-streaming mode - get the complete response at once
-                        string response = await _aiClient.SendMessageNonStreamingAsync(userMessage, _cts.Token);
+                        response = await _aiClient.SendMessageNonStreamingAsync(userMessage, _cts.Token);
+                        ChatMessage($"Assistant:{response}\n");
                         // Update the UI with the full response
-                        ChatMessage(response);
                     }
                 });
             }
@@ -120,7 +131,7 @@ namespace LMStudioExampleFormApp
             }
 
             // Update the text box with the complete message
-            txtResponse.Text = Message;
+            txtResponse.Text += $"{Message}";
             Debug.WriteLine($"ChatMessage: {Message}");
         }
 
@@ -209,6 +220,13 @@ namespace LMStudioExampleFormApp
             base.OnFormClosing(e);
             _cts?.Cancel();     // Cancel any pending requests
             _aiClient.Dispose(); // Dispose the AI client to release resources
+        }
+
+        private void txtResponse_TextChanged(object sender, EventArgs e)
+        {
+            txtResponse.SelectionStart = txtResponse.Text.Length;
+            txtResponse.SelectionLength = 0;
+            txtResponse.ScrollToCaret();
         }
     }
 }
