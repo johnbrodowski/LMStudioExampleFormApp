@@ -172,6 +172,7 @@ namespace LMStudioExampleFormApp
             this.Text = "LMStudio Example";
         }
 
+
         private void AiClient_OnComplete(object? sender, string e)
         {
             // Handle completion events from the AI client
