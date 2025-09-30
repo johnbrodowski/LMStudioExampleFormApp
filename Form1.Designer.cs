@@ -33,25 +33,40 @@
             btnCancel = new Button();
             txtPrompt = new TextBox();
             txtResponse = new RichTextBox();
+            menuStrip1 = new MenuStrip();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            testsToolStripMenuItem = new ToolStripMenuItem();
+            embeddingsToolStripMenuItem = new ToolStripMenuItem();
+            getModelsToolStripMenuItem = new ToolStripMenuItem();
+            visionToolStripMenuItem = new ToolStripMenuItem();
+            modelsToolStripMenuItem = new ToolStripMenuItem();
+            listAllModelsToolStripMenuItem = new ToolStripMenuItem();
+            listLoadedModelsToolStripMenuItem = new ToolStripMenuItem();
+            getModelInfoToolStripMenuItem = new ToolStripMenuItem();
+            listModelsByTypeToolStripMenuItem = new ToolStripMenuItem();
+            createModelSelectorToolStripMenuItem = new ToolStripMenuItem();
+            isEmbeddingModelAvailableToolStripMenuItem = new ToolStripMenuItem();
+            smartOperationToolStripMenuItem = new ToolStripMenuItem();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // btnSend
             // 
             btnSend.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnSend.Location = new Point(508, 179);
+            btnSend.Location = new Point(486, 179);
             btnSend.Name = "btnSend";
-            btnSend.Size = new Size(107, 23);
+            btnSend.Size = new Size(125, 23);
             btnSend.TabIndex = 0;
-            btnSend.Text = "Send No Stream";
+            btnSend.Text = "Send No Streaming";
             btnSend.UseVisualStyleBackColor = true;
             btnSend.Click += btnSend_Click;
             // 
             // btnSendNonStreaming
             // 
             btnSendNonStreaming.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnSendNonStreaming.Location = new Point(508, 203);
+            btnSendNonStreaming.Location = new Point(486, 203);
             btnSendNonStreaming.Name = "btnSendNonStreaming";
-            btnSendNonStreaming.Size = new Size(107, 23);
+            btnSendNonStreaming.Size = new Size(125, 23);
             btnSendNonStreaming.TabIndex = 1;
             btnSendNonStreaming.Text = "Send Streaming";
             btnSendNonStreaming.UseVisualStyleBackColor = true;
@@ -61,9 +76,9 @@
             // 
             btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnCancel.Enabled = false;
-            btnCancel.Location = new Point(508, 227);
+            btnCancel.Location = new Point(486, 227);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(107, 23);
+            btnCancel.Size = new Size(125, 23);
             btnCancel.TabIndex = 2;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
@@ -75,18 +90,117 @@
             txtPrompt.Location = new Point(2, 180);
             txtPrompt.Multiline = true;
             txtPrompt.Name = "txtPrompt";
-            txtPrompt.Size = new Size(500, 70);
+            txtPrompt.Size = new Size(479, 70);
             txtPrompt.TabIndex = 4;
+            txtPrompt.Text = "Tell me a made up story so I can test my AI app.";
             // 
             // txtResponse
             // 
             txtResponse.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            txtResponse.Location = new Point(0, 0);
+            txtResponse.Location = new Point(0, 27);
             txtResponse.Name = "txtResponse";
-            txtResponse.Size = new Size(615, 174);
+            txtResponse.Size = new Size(615, 147);
             txtResponse.TabIndex = 5;
             txtResponse.Text = "";
             txtResponse.TextChanged += txtResponse_TextChanged;
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, testsToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(616, 24);
+            menuStrip1.TabIndex = 7;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(37, 20);
+            fileToolStripMenuItem.Text = "File";
+            // 
+            // testsToolStripMenuItem
+            // 
+            testsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { embeddingsToolStripMenuItem, getModelsToolStripMenuItem, visionToolStripMenuItem, modelsToolStripMenuItem });
+            testsToolStripMenuItem.Name = "testsToolStripMenuItem";
+            testsToolStripMenuItem.Size = new Size(45, 20);
+            testsToolStripMenuItem.Text = "Tests";
+            // 
+            // embeddingsToolStripMenuItem
+            // 
+            embeddingsToolStripMenuItem.Name = "embeddingsToolStripMenuItem";
+            embeddingsToolStripMenuItem.Size = new Size(180, 22);
+            embeddingsToolStripMenuItem.Text = "Embeddings";
+            embeddingsToolStripMenuItem.Click += embeddingsToolStripMenuItem_Click;
+            // 
+            // getModelsToolStripMenuItem
+            // 
+            getModelsToolStripMenuItem.Name = "getModelsToolStripMenuItem";
+            getModelsToolStripMenuItem.Size = new Size(180, 22);
+            getModelsToolStripMenuItem.Text = "Get Models";
+            // 
+            // visionToolStripMenuItem
+            // 
+            visionToolStripMenuItem.Name = "visionToolStripMenuItem";
+            visionToolStripMenuItem.Size = new Size(180, 22);
+            visionToolStripMenuItem.Text = "Vision";
+            visionToolStripMenuItem.Click += visionToolStripMenuItem_Click;
+            // 
+            // modelsToolStripMenuItem
+            // 
+            modelsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { listAllModelsToolStripMenuItem, listLoadedModelsToolStripMenuItem, getModelInfoToolStripMenuItem, listModelsByTypeToolStripMenuItem, createModelSelectorToolStripMenuItem, isEmbeddingModelAvailableToolStripMenuItem, smartOperationToolStripMenuItem });
+            modelsToolStripMenuItem.Name = "modelsToolStripMenuItem";
+            modelsToolStripMenuItem.Size = new Size(180, 22);
+            modelsToolStripMenuItem.Text = "Models";
+            // 
+            // listAllModelsToolStripMenuItem
+            // 
+            listAllModelsToolStripMenuItem.Name = "listAllModelsToolStripMenuItem";
+            listAllModelsToolStripMenuItem.Size = new Size(225, 22);
+            listAllModelsToolStripMenuItem.Text = "ListAllModels";
+            listAllModelsToolStripMenuItem.Click += listAllModelsToolStripMenuItem_Click;
+            // 
+            // listLoadedModelsToolStripMenuItem
+            // 
+            listLoadedModelsToolStripMenuItem.Name = "listLoadedModelsToolStripMenuItem";
+            listLoadedModelsToolStripMenuItem.Size = new Size(225, 22);
+            listLoadedModelsToolStripMenuItem.Text = "ListLoadedModels";
+            listLoadedModelsToolStripMenuItem.Click += listLoadedModelsToolStripMenuItem_Click;
+            // 
+            // getModelInfoToolStripMenuItem
+            // 
+            getModelInfoToolStripMenuItem.Name = "getModelInfoToolStripMenuItem";
+            getModelInfoToolStripMenuItem.Size = new Size(225, 22);
+            getModelInfoToolStripMenuItem.Text = "GetModelInfo";
+            getModelInfoToolStripMenuItem.Click += getModelInfoToolStripMenuItem_Click;
+            // 
+            // listModelsByTypeToolStripMenuItem
+            // 
+            listModelsByTypeToolStripMenuItem.Name = "listModelsByTypeToolStripMenuItem";
+            listModelsByTypeToolStripMenuItem.Size = new Size(225, 22);
+            listModelsByTypeToolStripMenuItem.Text = "ListModelsByType";
+            listModelsByTypeToolStripMenuItem.Click += listModelsByTypeToolStripMenuItem_Click;
+            // 
+            // createModelSelectorToolStripMenuItem
+            // 
+            createModelSelectorToolStripMenuItem.Name = "createModelSelectorToolStripMenuItem";
+            createModelSelectorToolStripMenuItem.Size = new Size(225, 22);
+            createModelSelectorToolStripMenuItem.Text = "CreateModelSelector";
+            createModelSelectorToolStripMenuItem.Click += createModelSelectorToolStripMenuItem_Click;
+            // 
+            // isEmbeddingModelAvailableToolStripMenuItem
+            // 
+            isEmbeddingModelAvailableToolStripMenuItem.Name = "isEmbeddingModelAvailableToolStripMenuItem";
+            isEmbeddingModelAvailableToolStripMenuItem.Size = new Size(225, 22);
+            isEmbeddingModelAvailableToolStripMenuItem.Text = "IsEmbeddingModelAvailable";
+            isEmbeddingModelAvailableToolStripMenuItem.Click += isEmbeddingModelAvailableToolStripMenuItem_Click;
+            // 
+            // smartOperationToolStripMenuItem
+            // 
+            smartOperationToolStripMenuItem.Name = "smartOperationToolStripMenuItem";
+            smartOperationToolStripMenuItem.Size = new Size(225, 22);
+            smartOperationToolStripMenuItem.Text = "SmartOperation";
+            smartOperationToolStripMenuItem.Click += smartOperationToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -98,10 +212,14 @@
             Controls.Add(btnCancel);
             Controls.Add(btnSendNonStreaming);
             Controls.Add(btnSend);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "LMStudio Example";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -113,5 +231,19 @@
         private Button btnCancel;
         private TextBox txtPrompt;
         private RichTextBox txtResponse;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem testsToolStripMenuItem;
+        private ToolStripMenuItem embeddingsToolStripMenuItem;
+        private ToolStripMenuItem getModelsToolStripMenuItem;
+        private ToolStripMenuItem visionToolStripMenuItem;
+        private ToolStripMenuItem modelsToolStripMenuItem;
+        private ToolStripMenuItem listAllModelsToolStripMenuItem;
+        private ToolStripMenuItem listLoadedModelsToolStripMenuItem;
+        private ToolStripMenuItem getModelInfoToolStripMenuItem;
+        private ToolStripMenuItem listModelsByTypeToolStripMenuItem;
+        private ToolStripMenuItem createModelSelectorToolStripMenuItem;
+        private ToolStripMenuItem isEmbeddingModelAvailableToolStripMenuItem;
+        private ToolStripMenuItem smartOperationToolStripMenuItem;
     }
 }
