@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text.Json; // Import for Debug.WriteLine functionality
 
 namespace LMStudioExampleFormApp
@@ -6,8 +6,6 @@ namespace LMStudioExampleFormApp
     public partial class Form1 : Form
     {
         // Main AI client that handles communication with the LLM API
-        // private LMStudioExample _aiClient;
-        // private LMStudioExampleFormApp.two.LMStudioExample _aiClient;
         private LMStudioExample _aiClient;
 
         // Cancellation token source to allow canceling requests
@@ -19,9 +17,7 @@ namespace LMStudioExampleFormApp
         {
             // Initialize the form components defined in the designer
             InitializeComponent();
-
-
-
+ 
             // Create the AI client with endpoint URL, model name, and system prompt
             //_aiClient = new LMStudioExampleFormApp.two.LMStudioExample(
             _aiClient = new LMStudioExample(
@@ -199,8 +195,7 @@ namespace LMStudioExampleFormApp
             Debug.WriteLine($"Error occurred: {e.Message}");
             this.Text = "LMStudio Example";
         }
-
-
+ 
         private void AiClient_OnComplete(object? sender, string e)
         {
             // Handle completion events from the AI client
@@ -255,9 +250,7 @@ namespace LMStudioExampleFormApp
             txtResponse.SelectionLength = 0;
             txtResponse.ScrollToCaret();
         }
-
-
-
+ 
         private async Task GetEmbedding()
         {
             try
@@ -456,10 +449,7 @@ namespace LMStudioExampleFormApp
                 Debug.WriteLine($"Semantic search error: {ex}");
             }
         }
-
-
-
-
+ 
         private async Task ListAllModels()
         {
             try
@@ -513,7 +503,7 @@ namespace LMStudioExampleFormApp
 
                     foreach (var model in loadedModels)
                     {
-                        txtResponse.AppendText($"? {model.Id}\n");
+                        txtResponse.AppendText($"✓ {model.Id}\n");
                         txtResponse.AppendText($"  Type: {model.Type} | Quantization: {model.Quantization}\n");
                         txtResponse.AppendText($"  Max Context: {model.MaxContextLength:N0} tokens\n");
                         txtResponse.AppendText("\n");
@@ -559,22 +549,22 @@ namespace LMStudioExampleFormApp
                     txtResponse.AppendText($"Publisher: {modelInfo.Publisher}\n");
                     txtResponse.AppendText($"Architecture: {modelInfo.Arch}\n");
                     txtResponse.AppendText($"Quantization: {modelInfo.Quantization}\n");
-                    txtResponse.AppendText($"State: {modelInfo.State} {(modelInfo.IsLoaded ? "?" : "?")}\n");
+                    txtResponse.AppendText($"State: {modelInfo.State} {(modelInfo.IsLoaded ? "✓" : "✗")}\n");
                     txtResponse.AppendText($"Max Context Length: {modelInfo.MaxContextLength:N0} tokens\n");
                     txtResponse.AppendText($"Compatibility Type: {modelInfo.CompatibilityType}\n\n");
 
                     // Additional info based on model type
                     if (modelInfo.IsEmbeddingModel)
                     {
-                        txtResponse.AppendText("?? This is an embedding model for vector representations.\n");
+                        txtResponse.AppendText("📊 This is an embedding model for vector representations.\n");
                     }
                     else if (modelInfo.IsVisionModel)
                     {
-                        txtResponse.AppendText("??? This is a vision-language model that can process images.\n");
+                        txtResponse.AppendText("👁️ This is a vision-language model that can process images.\n");
                     }
                     else if (modelInfo.IsLanguageModel)
                     {
-                        txtResponse.AppendText("?? This is a text-only language model.\n");
+                        txtResponse.AppendText("💬 This is a text-only language model.\n");
                     }
                 }
             }
@@ -597,13 +587,13 @@ namespace LMStudioExampleFormApp
                 var visionModels = await _aiClient.GetVisionModelsAsync();
 
                 // Display Embedding Models
-                txtResponse.AppendText("?? EMBEDDING MODELS\n");
+                txtResponse.AppendText("📊 EMBEDDING MODELS\n");
                 txtResponse.AppendText("=".PadRight(80, '=') + "\n");
                 if (embeddingModels != null && embeddingModels.Length > 0)
                 {
                     foreach (var model in embeddingModels)
                     {
-                        string status = model.IsLoaded ? "? LOADED" : "? Not loaded";
+                        string status = model.IsLoaded ? "✓ LOADED" : "○ Not loaded";
                         txtResponse.AppendText($"{status} | {model.Id} ({model.Quantization})\n");
                     }
                 }
@@ -614,13 +604,13 @@ namespace LMStudioExampleFormApp
                 txtResponse.AppendText("\n");
 
                 // Display Language Models
-                txtResponse.AppendText("?? LANGUAGE MODELS (LLMs)\n");
+                txtResponse.AppendText("💬 LANGUAGE MODELS (LLMs)\n");
                 txtResponse.AppendText("=".PadRight(80, '=') + "\n");
                 if (languageModels != null && languageModels.Length > 0)
                 {
                     foreach (var model in languageModels)
                     {
-                        string status = model.IsLoaded ? "? LOADED" : "? Not loaded";
+                        string status = model.IsLoaded ? "✓ LOADED" : "○ Not loaded";
                         txtResponse.AppendText($"{status} | {model.Id} ({model.Quantization})\n");
                         txtResponse.AppendText($"         Context: {model.MaxContextLength:N0} tokens\n");
                     }
@@ -632,13 +622,13 @@ namespace LMStudioExampleFormApp
                 txtResponse.AppendText("\n");
 
                 // Display Vision Models
-                txtResponse.AppendText("??? VISION-LANGUAGE MODELS (VLMs)\n");
+                txtResponse.AppendText("👁️ VISION-LANGUAGE MODELS (VLMs)\n");
                 txtResponse.AppendText("=".PadRight(80, '=') + "\n");
                 if (visionModels != null && visionModels.Length > 0)
                 {
                     foreach (var model in visionModels)
                     {
-                        string status = model.IsLoaded ? "? LOADED" : "? Not loaded";
+                        string status = model.IsLoaded ? "✓ LOADED" : "○ Not loaded";
                         txtResponse.AppendText($"{status} | {model.Id} ({model.Quantization})\n");
                         txtResponse.AppendText($"         Context: {model.MaxContextLength:N0} tokens\n");
                     }
@@ -769,7 +759,7 @@ namespace LMStudioExampleFormApp
 
                 if (loadedModels == null || loadedModels.Length == 0)
                 {
-                    txtResponse.AppendText("? No models are loaded!\n");
+                    txtResponse.AppendText("❌ No models are loaded!\n");
                     txtResponse.AppendText("Please load a model in LM Studio first.\n");
                     return;
                 }
@@ -780,9 +770,9 @@ namespace LMStudioExampleFormApp
                 bool hasVision = loadedModels.Any(m => m.IsVisionModel);
 
                 txtResponse.AppendText("Available capabilities:\n");
-                txtResponse.AppendText($"  {(hasLLM ? "?" : "?")} Text Generation (LLM)\n");
-                txtResponse.AppendText($"  {(hasEmbedding ? "?" : "?")} Embeddings\n");
-                txtResponse.AppendText($"  {(hasVision ? "?" : "?")} Vision Understanding (VLM)\n\n");
+                txtResponse.AppendText($"  {(hasLLM ? "✓" : "✗")} Text Generation (LLM)\n");
+                txtResponse.AppendText($"  {(hasEmbedding ? "✓" : "✗")} Embeddings\n");
+                txtResponse.AppendText($"  {(hasVision ? "✓" : "✗")} Vision Understanding (VLM)\n\n");
 
                 if (hasLLM)
                 {
