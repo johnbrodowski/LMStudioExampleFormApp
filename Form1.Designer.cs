@@ -53,32 +53,31 @@
             // btnSend
             // 
             btnSend.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnSend.Location = new Point(486, 179);
+            btnSend.Location = new Point(467, 179);
             btnSend.Name = "btnSend";
-            btnSend.Size = new Size(125, 23);
+            btnSend.Size = new Size(144, 23);
             btnSend.TabIndex = 0;
-            btnSend.Text = "Send No Streaming";
+            btnSend.Text = "Send Streaming";
             btnSend.UseVisualStyleBackColor = true;
             btnSend.Click += btnSend_Click;
             // 
             // btnSendNonStreaming
             // 
             btnSendNonStreaming.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnSendNonStreaming.Location = new Point(486, 203);
+            btnSendNonStreaming.Location = new Point(467, 203);
             btnSendNonStreaming.Name = "btnSendNonStreaming";
-            btnSendNonStreaming.Size = new Size(125, 23);
+            btnSendNonStreaming.Size = new Size(144, 23);
             btnSendNonStreaming.TabIndex = 1;
-            btnSendNonStreaming.Text = "Send Streaming";
+            btnSendNonStreaming.Text = "Send Non-Streaming";
             btnSendNonStreaming.UseVisualStyleBackColor = true;
             btnSendNonStreaming.Click += btnSendNonStreaming_Click;
             // 
             // btnCancel
             // 
             btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCancel.Enabled = false;
-            btnCancel.Location = new Point(486, 227);
+            btnCancel.Location = new Point(467, 227);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(125, 23);
+            btnCancel.Size = new Size(144, 23);
             btnCancel.TabIndex = 2;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
@@ -90,9 +89,9 @@
             txtPrompt.Location = new Point(2, 180);
             txtPrompt.Multiline = true;
             txtPrompt.Name = "txtPrompt";
-            txtPrompt.Size = new Size(479, 70);
+            txtPrompt.Size = new Size(459, 70);
             txtPrompt.TabIndex = 4;
-            txtPrompt.Text = "Tell me a made up story so I can test my AI app.";
+            txtPrompt.Text = "Get the weather in boston.";
             // 
             // txtResponse
             // 
@@ -129,20 +128,20 @@
             // embeddingsToolStripMenuItem
             // 
             embeddingsToolStripMenuItem.Name = "embeddingsToolStripMenuItem";
-            embeddingsToolStripMenuItem.Size = new Size(180, 22);
+            embeddingsToolStripMenuItem.Size = new Size(140, 22);
             embeddingsToolStripMenuItem.Text = "Embeddings";
             embeddingsToolStripMenuItem.Click += embeddingsToolStripMenuItem_Click;
             // 
             // getModelsToolStripMenuItem
             // 
             getModelsToolStripMenuItem.Name = "getModelsToolStripMenuItem";
-            getModelsToolStripMenuItem.Size = new Size(180, 22);
+            getModelsToolStripMenuItem.Size = new Size(140, 22);
             getModelsToolStripMenuItem.Text = "Get Models";
             // 
             // visionToolStripMenuItem
             // 
             visionToolStripMenuItem.Name = "visionToolStripMenuItem";
-            visionToolStripMenuItem.Size = new Size(180, 22);
+            visionToolStripMenuItem.Size = new Size(140, 22);
             visionToolStripMenuItem.Text = "Vision";
             visionToolStripMenuItem.Click += visionToolStripMenuItem_Click;
             // 
@@ -150,7 +149,7 @@
             // 
             modelsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { listAllModelsToolStripMenuItem, listLoadedModelsToolStripMenuItem, getModelInfoToolStripMenuItem, listModelsByTypeToolStripMenuItem, createModelSelectorToolStripMenuItem, isEmbeddingModelAvailableToolStripMenuItem, smartOperationToolStripMenuItem });
             modelsToolStripMenuItem.Name = "modelsToolStripMenuItem";
-            modelsToolStripMenuItem.Size = new Size(180, 22);
+            modelsToolStripMenuItem.Size = new Size(140, 22);
             modelsToolStripMenuItem.Text = "Models";
             // 
             // listAllModelsToolStripMenuItem
