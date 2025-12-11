@@ -1,3 +1,8 @@
+# ATTENTION!!
+This is the 'dev' branch and might not ever be merged with the master. I through this together this morning, so I would expect an issue or two. I added tool supprt using code from another project I'm working, so some things might appear out of place or have a name that doest exactly align with what you would expect. Also, you might run into something I have broken ('Cancel button') or an illeagl crossthreaded call or two; becuase something on the UI needs to be invoked and wasn't.
+
+ 
+
 # LM Studio Example Form App 
 
 A comprehensive Windows Forms application that demonstrates how to integrate with LM Studio or other compatible AI services through a clean C# implementation. This application supports text generation, vision models, embeddings, and model management.
